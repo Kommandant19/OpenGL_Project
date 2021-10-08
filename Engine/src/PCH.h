@@ -1,5 +1,4 @@
 // OpenGL files
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 // STD files
