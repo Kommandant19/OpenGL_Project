@@ -1,0 +1,6 @@
+[submodule "OpenGL/Deps/glfw"]
+	path = OpenGL/Deps/glfw
+	url = https://github.com/glfw/glfw
+[submodule "OpenGL/Deps/glad"]
+	path = OpenGL/Deps/glad
+	url = https://github.com/Dav1dde/glad.git
