@@ -4,10 +4,14 @@ project(OpenGL)
 set(CMAKE_CXX_STANDARD 17)
 
 
+include_directories(Deps/GLFW)
 include_directories(Deps/GLFW/include)
 include_directories(Deps/GLFW/include/GLFW)
-include_directories(Deps/GLFW)
+
 include_directories(Deps/glad)
+include_directories(Deps/glad/include)
+include_directories(Deps/glad/include/glad)
+
 
 add_subdirectory(Deps/glad)
 add_subdirectory(Deps/glfw)
@@ -18,7 +22,7 @@ add_executable(OpenGL
 
 target_precompile_headers(OpenGL PRIVATE "Engine/src/PCH.h")
 
-target_link_libraries( OpenGL
+target_link_libraries(OpenGL
         PRIVATE glfw
         PRIVATE glad
 )
