@@ -9,8 +9,7 @@ include_directories(Deps/GLFW/include)
 include_directories(Deps/GLFW/include/GLFW)
 
 include_directories(Deps/glad)
-include_directories(Deps/glad/include)
-include_directories(Deps/glad/include/glad)
+include_directories(Deps/glad/src/glad.c)
 
 
 add_subdirectory(Deps/glad)
