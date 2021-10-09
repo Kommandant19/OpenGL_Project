@@ -1,4 +1,3 @@
-#include "IndexBuffer.h"
 #pragma once
 
 class IndexBuffer

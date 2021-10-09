@@ -1,5 +1,10 @@
 #include "PCH.h"
 
+#include "Shader.h"
+#include "VertexArray.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+
 int main()
 {
     GLFWwindow *window;
@@ -10,7 +15,7 @@ int main()
     }
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "OpenGL gaming", nullptr, nullptr);
+    window = glfwCreateWindow(640, 480, "OpenGL", nullptr, nullptr);
     if (!window) {
         glfwTerminate();
         return -1;
@@ -39,10 +44,22 @@ int main()
             -0.5f,  0.5f
     };
 
-    unsigned int indices[] = {      // note that we start from 0!
-            0, 1, 3,                     // first Triangle
-            1, 2, 3                      // second Triangle
+    unsigned int indices[] = {           // note that we start from 0!
+            0, 1, 3,                    // first Triangle
+            1, 2, 3                     // second Triangle
     };
+
+    //Vertex Array Object
+    //VertexArray VAO;
+
+    //Index Buffer Object
+    IndexBuffer IBO(indices, 6);
+
+    //Vertex Buffer Object
+    VertexBuffer VBO(vertices, 4 * 2 *(sizeof(float)));
+
+    Shader shader("Engine/Resources/VertexShader.shader", "Engine/Resources/FragmentShader.shader");
+
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);

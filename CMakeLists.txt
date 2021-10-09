@@ -16,7 +16,15 @@ add_subdirectory(Deps/glad)
 add_subdirectory(Deps/glfw)
 
 add_executable(OpenGL
+        Engine/Source/IndexBuffer.cpp
+        Engine/Source/IndexBuffer.h
         Engine/Source/Main.cpp
+        Engine/Source/Shader.cpp
+        Engine/Source/Shader.h
+        Engine/Source/VertexArray.cpp
+        Engine/Source/VertexArray.h
+        Engine/Source/VertexBuffer.cpp
+        Engine/Source/VertexBuffer.h
 )
 
 target_precompile_headers(OpenGL PRIVATE "Engine/Source/PCH.h")
