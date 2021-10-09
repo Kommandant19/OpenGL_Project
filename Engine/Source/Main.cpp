@@ -4,6 +4,7 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "Macro.h"
 
 int main()
 {
@@ -44,28 +45,29 @@ int main()
              -0.5f,  0.5f
     };
 
-    unsigned int indices[] = {           // note that we start from 0!
-            0, 1, 3,                    // first Triangle
-            1, 2, 3                     // second Triangle
+    unsigned int indices[] = {
+            0, 1, 2,
+            2, 3, 0
     };
 
     //Vertex Array Object
     //VertexArray VAO;
 
     unsigned int vao;
-    glad_glGenVertexArrays(1, &vao);
-    glad_glBindVertexArray(vao);
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
 
     //Vertex Buffer Object
-    VertexBuffer VBO(vertices, 4 * 2 *(sizeof(float)));
-    glad_glEnableVertexAttribArray(0);
-    glad_glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
+    VertexBuffer VBO(vertices, 4 * 2 * sizeof(float));
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
+
+    Shader shader("Engine/Resources/Shaders/VertexShader", "Engine/Resources/Shaders/FragmentShader");
+    shader.SetUniform4f("u_Color", 1.0f, 1.0f, 0.0f, 0.0f);
+    shader.Bind();
 
     //Index Buffer Object
     IndexBuffer IBO(indices, 6);
-
-    Shader shader("Resources/Shaders/VertexShader.shader", "Resources/Shaders/FragmentShader.shader");
-   shader.SetUniform4f("u_Color", 1.0f, 2.0f, 0.0f, 3.0f);
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
@@ -76,7 +78,9 @@ int main()
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glad_glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        IBO.Bind();
+
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
