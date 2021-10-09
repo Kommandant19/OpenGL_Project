@@ -9,17 +9,17 @@ include_directories(Deps/GLFW/include)
 include_directories(Deps/GLFW/include/GLFW)
 
 include_directories(Deps/glad)
-include_directories(Deps/glad/src/glad.c)
+include_directories(Deps/glad/Source/glad.c)
 
 
 add_subdirectory(Deps/glad)
 add_subdirectory(Deps/glfw)
 
 add_executable(OpenGL
-        Engine/src/Main.cpp
+        Engine/Source/Main.cpp
 )
 
-target_precompile_headers(OpenGL PRIVATE "Engine/src/PCH.h")
+target_precompile_headers(OpenGL PRIVATE "Engine/Source/PCH.h")
 
 target_link_libraries(OpenGL
         PRIVATE glfw
