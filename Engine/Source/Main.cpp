@@ -38,10 +38,10 @@ int main()
     std::cout << glVersion << "\n";
 
     float vertices[] = {
-            -0.5f, -0.5f,
-             0.5f, -0.5f,
-             0.5f,  0.5f,
-            -0.5f,  0.5f
+             -0.5f, -0.5f,
+              0.5f, -0.5f,
+              0.5f, -0.5f,
+             -0.5f,  0.5f
     };
 
     unsigned int indices[] = {           // note that we start from 0!
@@ -52,14 +52,20 @@ int main()
     //Vertex Array Object
     //VertexArray VAO;
 
-    //Index Buffer Object
-    IndexBuffer IBO(indices, 6);
+    unsigned int vao;
+    glad_glGenVertexArrays(1, &vao);
+    glad_glBindVertexArray(vao);
 
     //Vertex Buffer Object
     VertexBuffer VBO(vertices, 4 * 2 *(sizeof(float)));
+    glad_glEnableVertexAttribArray(0);
+    glad_glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
-    Shader shader("Engine/Resources/VertexShader.shader", "Engine/Resources/FragmentShader.shader");
+    //Index Buffer Object
+    IndexBuffer IBO(indices, 6);
 
+    Shader shader("Resources/Shaders/VertexShader.shader", "Resources/Shaders/FragmentShader.shader");
+   shader.SetUniform4f("u_Color", 1.0f, 2.0f, 0.0f, 3.0f);
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
@@ -69,6 +75,8 @@ int main()
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glad_glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

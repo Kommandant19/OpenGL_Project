@@ -9,4 +9,4 @@ VertexBuffer::VertexBuffer(const void* data, unsigned int size)
 VertexBuffer::~VertexBuffer ()               {glad_glDeleteBuffers(1, &m_RendererID);}
 
 void VertexBuffer::Bind     ()       const   {glad_glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);}
-void VertexBuffer::unBind   ()       const   {glBindBuffer(GL_ARRAY_BUFFER, 0);}
+void VertexBuffer::unBind   ()       const   {glad_glBindBuffer(GL_ARRAY_BUFFER, 0);}

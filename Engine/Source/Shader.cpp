@@ -36,7 +36,7 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
     return ID;
 }
 
-unsigned int Shader::CreateShader(const std::string &vertexShaderFile, const std::string &fragmentShaderFile)
+unsigned int Shader::CreateShader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
 {
     std::ifstream i_vs(vertexShaderFile);
     const std::string f_vs((std::istreambuf_iterator<char>(i_vs)), std::istreambuf_iterator<char>());
@@ -64,14 +64,17 @@ unsigned int Shader::CreateShader(const std::string &vertexShaderFile, const std
 void Shader::Bind   ()   const   {glad_glUseProgram(m_RendererID);}
 void Shader::unBind ()   const   {glad_glUseProgram(0);}
 
-//unsigned int Shader::GetUniformLocation(const std::string& name)
-//{
-//    if (m_LocationCache.find(name) != m_LocationCache.end())    {return m_LocationCache[name];}
-//
-//    int location = glad_glGetUniformLocation(m_RendererID, name.c_str());
-//
-//    if (location == -1) {std::cout << "Warning!!! Uniform: " << name << " doesn't exist! \n";}
-//    else                {m_LocationCache[name] = location;}
-//
-//    return location;
-//}
+unsigned int Shader::GetUniformLocation(const std::string& name) const
+{
+    if (m_LocationCache.find(name) != m_LocationCache.end())    {return m_LocationCache[name];}
+
+    int location = glad_glGetUniformLocation(m_RendererID, name.c_str());
+
+    if (location == -1) {std::cout << "Warning!!! Uniform: " << name << " doesn't exist! \n";}
+    else                { m_LocationCache[name] = location;}
+
+    return location;
+}
+
+void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3) const  {glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);}
+
