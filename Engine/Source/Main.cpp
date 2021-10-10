@@ -41,13 +41,13 @@ int main()
     float vertices[] = {
              -0.5f, -0.5f,
               0.5f, -0.5f,
-              0.5f, -0.5f,
+              0.5f,  0.5f,
              -0.5f,  0.5f
     };
 
     unsigned int indices[] = {
-            0, 1, 2,
-            2, 3, 0
+            0, 1, 3,
+            1, 2, 3
     };
 
     //Vertex Array Object
@@ -62,13 +62,17 @@ int main()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
-    Shader shader("Engine/Resources/Shaders/VertexShader", "Engine/Resources/Shaders/FragmentShader");
-    shader.SetUniform4f("u_Color", 1.0f, 1.0f, 0.0f, 0.0f);
-    shader.Bind();
-
     //Index Buffer Object
     IndexBuffer IBO(indices, 6);
 
+    Shader shader("Resources/Shaders/VertexShader", "Resources/Shaders/FragmentShader");
+    shader.SetUniform4f("u_Color", 1.0f, 1.0f, 0.0f, 0.0f);
+    shader.Bind();
+
+    glDeleteProgram(vao);
+    VBO.unBind();
+    IBO.unBind()
+;
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
@@ -77,6 +81,10 @@ int main()
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
+
+        shader.Bind();
+
+        glUseProgram(vao);
 
         IBO.Bind();
 
