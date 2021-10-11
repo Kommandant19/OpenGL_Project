@@ -1,6 +1,11 @@
 #pragma once
 #include "PCH.h"
 
+struct Shaders
+{
+
+};
+
 class Shader{
 private:
     std::unordered_map<std::string, int> m_LocationCache;

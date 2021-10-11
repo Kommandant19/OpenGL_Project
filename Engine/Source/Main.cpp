@@ -66,7 +66,6 @@ int main()
     IndexBuffer IBO(indices, 6);
 
     Shader shader("Resources/Shaders/VertexShader", "Resources/Shaders/FragmentShader");
-    shader.SetUniform4f("u_Color", 1.0f, 1.0f, 0.0f, 0.0f);
     shader.Bind();
 
     glDeleteProgram(vao);
