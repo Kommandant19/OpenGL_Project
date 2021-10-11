@@ -22,11 +22,6 @@ int main()
         return -1;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
@@ -42,13 +37,14 @@ int main()
              -0.5f, -0.5f,
               0.5f, -0.5f,
               0.5f,  0.5f,
-             -0.5f,  0.5f
+             //-0.5f,  0.5f
     };
 
     unsigned int indices[] = {
             0, 1, 3,
             1, 2, 3
     };
+
 
     //Vertex Array Object
     //VertexArray VAO;
@@ -65,7 +61,7 @@ int main()
     //Index Buffer Object
     IndexBuffer IBO(indices, 6);
 
-    Shader shader("Resources/Shaders/VertexShader", "Resources/Shaders/FragmentShader");
+    Shader shader("./Resources/Shaders/VertexShader", "./Resources/Shaders/FragmentShader");
     shader.Bind();
 
     glDeleteProgram(vao);
@@ -82,10 +78,9 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         shader.Bind();
-
-        glUseProgram(vao);
-
+        VBO.Bind();
         IBO.Bind();
+        glUseProgram(vao);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 

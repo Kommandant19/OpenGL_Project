@@ -25,9 +25,10 @@ add_executable(OpenGL
         Engine/Source/VertexArray.h
         Engine/Source/VertexBuffer.cpp
         Engine/Source/VertexBuffer.h
-)
+        Engine/Source/VertexBufferLayout.cpp Engine/Source/VertexBufferLayout.h)
 
 target_precompile_headers(OpenGL PRIVATE "Engine/Source/PCH.h")
+
 
 target_link_libraries(OpenGL
         PRIVATE glfw
