@@ -4,7 +4,6 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
-#include "Macro.h"
 
 int main()
 {
@@ -37,12 +36,12 @@ int main()
              -0.5f, -0.5f,
               0.5f, -0.5f,
               0.5f,  0.5f,
-             //-0.5f,  0.5f
+             -0.5f,  0.5f
     };
 
     unsigned int indices[] = {
-            0, 1, 3,
-            1, 2, 3
+            1, 2, 3,
+            1, 3, 0
     };
 
 
@@ -61,8 +60,8 @@ int main()
     //Index Buffer Object
     IndexBuffer IBO(indices, 6);
 
-    Shader shader("./Resources/Shaders/VertexShader", "./Resources/Shaders/FragmentShader");
-    shader.Bind();
+    Shader shader("/OpenGL/Engine/Resources/Shaders/VertexShader.shader",
+                  "/OpenGL/Engine/Resources/Shaders/FragmentShader.shader");
 
     glDeleteProgram(vao);
     VBO.unBind();
