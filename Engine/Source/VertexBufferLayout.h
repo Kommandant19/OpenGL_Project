@@ -3,10 +3,10 @@
 
 template<typename T>
 struct foobar : std::false_type
-        { };
+{ };
 
 struct VertexBufferElement
-        {
+{
     unsigned int type;
     unsigned int count;
     bool nor;
@@ -21,26 +21,27 @@ struct VertexBufferElement
         }
         return  0;
     }
-        };
+};
 
 class VertexBufferLayout
-        {
-        private:
-            std::vector<VertexBufferElement> m_Element;
-            unsigned int m_Stride;
+{
+private:
+    std::vector<VertexBufferElement> m_Element;
+    unsigned int m_Stride;
 
-        public:
-            VertexBufferLayout() : m_Stride(0) {};
+public:
+    VertexBufferLayout() : m_Stride(0) {};
 
-            template<class T>
-                    void push(unsigned int count)
-                    {
-                        static_assert(foobar<T>::value);
-                    }
+    template<class T>
+    void push(unsigned int count)
+    {
+        static_assert(foobar<T>::value);
+    }
 
-                    inline std::vector<VertexBufferElement> getElement	        () const& { return m_Element; }
-                    inline unsigned int getStride					            () const  { return m_Stride; }
-        };
+    inline std::vector<VertexBufferElement> getElement() const& { return m_Element; }
+    inline unsigned int getStride() const { return m_Stride; }
+};
+
 template<>
 inline void VertexBufferLayout::push<float>(unsigned int count)
 {

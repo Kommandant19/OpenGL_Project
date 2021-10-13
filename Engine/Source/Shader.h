@@ -16,7 +16,7 @@ public:
     void Bind         ()   const;
     void unBind       ()   const;
 
-    std::string readFile            (const char *filePath);
+    std::string  readFile           (const char *filePath);
     unsigned int LoadShader         (const char *vertex_path, const char* fragment_path);
     unsigned int GetUniformLocation (const std::string& name);
 
