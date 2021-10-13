@@ -90,15 +90,15 @@ void Shader::Bind   ()   const    {glUseProgram(m_RendererID);}
 void Shader::unBind ()   const    {glUseProgram(0);}
 
 
-//unsigned int Shader::GetUniformLocation(const std::string& name)
-//{
-//    if (m_LocationCache.find(name) != m_LocationCache.end())    {return m_LocationCache[name];}
-//
-//    int location = glGetUniformLocation(m_RendererID, name.c_str());
-//
-//    if (location == -1) {std::cout << "Warning!!! Uniform: " << name << " doesn't exist! \n";}
-//    else                {m_LocationCache[name] = location;}
-//
-//    return location;
-//}
-//void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)  {glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);}
+unsigned int Shader::GetUniformLocation(const std::string& name)
+{
+    if (m_LocationCache.find(name) != m_LocationCache.end())    {return m_LocationCache[name];}
+
+    int location = glGetUniformLocation(m_RendererID, name.c_str());
+
+    if (location == -1) {std::cout << "Warning!!! Uniform: " << name << " doesn't exist! \n";}
+    else                {m_LocationCache[name] = location;}
+
+    return location;
+}
+void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)  {glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);}

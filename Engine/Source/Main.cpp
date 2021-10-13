@@ -46,24 +46,19 @@ int main()
 
 
     //Vertex Array Object
-    //VertexArray VAO;
-
-    unsigned int vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
+    VertexArray VAO;
 
     //Vertex Buffer Object
     VertexBuffer VBO(vertices, 4 * 2 * sizeof(float));
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
     //Index Buffer Object
     IndexBuffer IBO(indices, 6);
 
     Shader shader("/OpenGL/Engine/Resources/Shaders/VertexShader.shader",
                   "/OpenGL/Engine/Resources/Shaders/FragmentShader.shader");
+    //shader.SetUniform4f("u_Color", 1.0f, 3.0f, 0.0f, 0.5f);
 
-    glDeleteProgram(vao);
+    VAO.unBind();
     VBO.unBind();
     IBO.unBind()
 ;
@@ -76,10 +71,12 @@ int main()
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-        shader.Bind();
+        shader.Bind()
+        shader.SetUniform4f("u_Color", 1.0f, 3.0f, 0.0f, 0.5f);
+
         VBO.Bind();
+        VAO.Bind();
         IBO.Bind();
-        glUseProgram(vao);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
