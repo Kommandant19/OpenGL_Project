@@ -2,9 +2,11 @@
 #include "VertexBuffer.h"
 
 class VertexBufferLayout;
-class VertexArray{
+
+class VertexArray
+{
 private:
-            unsigned int m_RendererID{};
+     unsigned int m_RendererID{};
 
 public:
     VertexArray     ();

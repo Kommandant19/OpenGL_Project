@@ -1,13 +1,14 @@
 #include "VertexArray.h"
+#include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
 
-VertexArray::VertexArray   ()  {glad_glGenVertexArrays(1, &m_RendererID);}
-VertexArray::~VertexArray  () {glad_glDeleteVertexArrays(1, &m_RendererID);}
+VertexArray::VertexArray   ()  {glGenVertexArrays       (1, &m_RendererID);}
+VertexArray::~VertexArray  ()  {glDeleteVertexArrays    (1, &m_RendererID);}
 
-void VertexArray::BufferAdd(VertexBuffer& vb, const VertexBufferLayout& layout)
+void VertexArray::BufferAdd(VertexBuffer& VBO, const VertexBufferLayout& layout)
 {
-    vb.Bind();
+    VBO.Bind();
     unsigned int offset = 0;
     const auto& elements = layout.getElement();
 
@@ -18,7 +19,7 @@ void VertexArray::BufferAdd(VertexBuffer& vb, const VertexBufferLayout& layout)
         offset += element.count * VertexBufferElement::getSizeofType(element.count);
 
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer  (i, element.count, element.type, element.nor ,layout.getStride(), (const void*) offset);
+        glVertexAttribPointer  (i, element.count, element.type, element.condition ,layout.getStride(), (const void*) offset);
     }
 }
 void VertexArray::Bind     ()   const    {glBindVertexArray(m_RendererID);}

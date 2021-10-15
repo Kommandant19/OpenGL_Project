@@ -5,6 +5,7 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "VertexBufferLayout.h"
+#include "Renderer.h"
 
 int main()
 {
@@ -21,7 +22,7 @@ int main()
     }
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "OpenGL", nullptr, nullptr);
+    window = glfwCreateWindow(1024, 800, "OpenGL", nullptr, nullptr);
     if (!window) {
         glfwTerminate();
         return -1;
@@ -45,7 +46,7 @@ int main()
              -0.5f,  0.5f
     };
 
-    unsigned int indices[] = {
+    uint32_t indices[] = {
             1, 2, 3,
             1, 3, 0
     };
@@ -54,9 +55,9 @@ int main()
     //Vertex Array Object
     VertexArray VAO;
 
-    unsigned int vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
+   //unsigned int vao;
+   //glGenVertexArrays(1, &vao);
+   //glBindVertexArray(vao);
 
     //Vertex Buffer Object
     VertexBuffer VBO(vertices, 4 * 2 * sizeof(float));
@@ -64,39 +65,34 @@ int main()
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
     VertexBufferLayout layout;
-    //layout.push<float>(3);
+    layout.push<float>(2);
 
-    //VAO.BufferAdd(VBO, layout);
+    VAO.BufferAdd(VBO, layout);
 
     //Index Buffer Object
     IndexBuffer IBO(indices, 6);
 
     Shader shader("/OpenGL/Engine/Resources/Shaders/VertexShader.shader",
                   "/OpenGL/Engine/Resources/Shaders/FragmentShader.shader");
-    shader.SetUniform4f("u_Color", 1.0f, 2.0f, 0.0f, 0.0f);
-    shader.Bind();
 
-    glDeleteProgram(vao);
+    shader.Bind();
     VBO.unBind();
-    IBO.unBind()
-;
+    IBO.unBind();
+
+    Renderer renderer;
+
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+        renderer.Clear();
 
-        shader.SetUniform4f("u_Color", 1.0f, 2.0f, 0.0f, 0.0f);
         shader.Bind();
+        shader.SetUniform4f("u_Color", 1.0f, 2.0f, 0.0f, 0.0f);
 
-        glUseProgram(vao);
-
-        IBO.Bind();
-
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        renderer.Draw(VAO, IBO, shader);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
