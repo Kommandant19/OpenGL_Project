@@ -25,7 +25,7 @@ add_executable(OpenGL
         Engine/Source/VertexArray.h
         Engine/Source/VertexBuffer.cpp
         Engine/Source/VertexBuffer.h
-        Engine/Source/VertexBufferLayout.cpp Engine/Source/VertexBufferLayout.h "Engine/Source/Texture.cpp" "Engine/Source/Texture.h" "Engine/Source/Renderer.h" "Engine/Source/Renderer.cpp")
+        Engine/Source/VertexBufferLayout.cpp Engine/Source/VertexBufferLayout.h "Engine/Source/Texture.cpp" "Engine/Source/Texture.h" "Engine/Source/Renderer.h" "Engine/Source/Renderer.cpp" "Engine/Source/Camera.h")
 
 target_precompile_headers(OpenGL PRIVATE "Engine/Source/PCH.h")
 

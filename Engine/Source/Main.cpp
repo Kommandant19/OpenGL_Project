@@ -53,21 +53,15 @@ int main()
 
 
     //Vertex Array Object
-    VertexArray VAO;
-
-   //unsigned int vao;
-   //glGenVertexArrays(1, &vao);
-   //glBindVertexArray(vao);
+    unsigned int VAO;
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
 
     //Vertex Buffer Object
     VertexBuffer VBO(vertices, 4 * 2 * sizeof(float));
+
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
-
-    VertexBufferLayout layout;
-    layout.push<float>(2);
-
-    VAO.BufferAdd(VBO, layout);
 
     //Index Buffer Object
     IndexBuffer IBO(indices, 6);
@@ -91,7 +85,6 @@ int main()
 
         shader.Bind();
         shader.SetUniform4f("u_Color", 1.0f, 2.0f, 0.0f, 0.0f);
-
         renderer.Draw(VAO, IBO, shader);
 
         /* Swap front and back buffers */

@@ -6,7 +6,7 @@
 class Renderer
 {
 public:
-	void Draw	(const VertexArray& VAO, const IndexBuffer& IBO, Shader& shader);
+	void Draw(unsigned int& VAO, const IndexBuffer& IBO, Shader& shader);
 
 	void Clear() const;
 };
